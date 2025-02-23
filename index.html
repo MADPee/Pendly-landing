@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pendly - Sammankopplar pendlare med uppdrag</title>
+    
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body {
+            background-color: #1E2832;
+        }
+        .stats-banner {
+            background-color: rgba(255,139,62,0.1);
+            border-bottom: 1px solid rgba(255,139,62,0.2);
+        }
+        .stats-item {
+            border-left: 1px solid rgba(255,139,62,0.2);
+        }
+        .mission-btn {
+            background-color: #2A3541;
+            color: #E8D5C4;
+            border: 1px solid rgba(255,139,62,0.2);
+        }
+        .mission-btn.active {
+            background-color: #FF8B3E;
+            color: #1E2832;
+        }
+    </style>
+</head>
+<body>
+    <!-- Statistik banner -->
+    <div class="stats-banner">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-3 text-center">
+                <div class="py-4 px-4">
+                    <span class="text-[#FF8B3E] font-medium text-lg mr-2">1234</span>
+                    <span class="text-[#E8D5C4]">utförda uppdrag</span>
+                </div>
+                <div class="py-4 px-4 stats-item">
+                    <span class="text-[#FF8B3E] font-medium text-lg mr-2">567</span>
+                    <span class="text-[#E8D5C4]">aktiva användare</span>
+                </div>
+                <div class="py-4 px-4 stats-item">
+                    <span class="text-[#FF8B3E] font-medium text-lg mr-2">890</span>
+                    <span class="text-[#E8D5C4]">sparade resor</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Huvudinnehåll -->
+    <main class="max-w-3xl mx-auto py-16 px-4">
+        <div class="text-center mb-12">
+            <h1 class="text-[#E8D5C4] text-3xl font-semibold mb-2">
+                Vad behöver du hjälp med?
+            </h1>
+            <p class="text-[#E8D5C4] opacity-80">
+                Låt pendlare hjälpa dig med dina ärenden
+            </p>
+        </div>
+
+        <div class="space-y-6">
+            <!-- Prompt-ruta -->
+            <input 
+                type="text"
+                placeholder="Beskriv ditt ärende här..."
+                class="w-full py-6 px-4 rounded-lg bg-[#2A3541] border border-[#FF8B3E]/20 text-[#E8D5C4]"
+            >
+            
+            <!-- Kategoriknappar -->
+            <div class="flex flex-wrap gap-2 justify-center">
+                <button class="mission-btn flex items-center gap-2 px-6 py-2 rounded-full transition-colors hover:opacity-90">
+                    <i data-lucide="package" class="w-4 h-4"></i>
+                    <span>Paketleverans</span>
+                </button>
+                <button class="mission-btn flex items-center gap-2 px-6 py-2 rounded-full transition-colors hover:opacity-90">
+                    <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+                    <span>Matkasse</span>
+                </button>
+                <button class="mission-btn flex items-center gap-2 px-6 py-2 rounded-full transition-colors hover:opacity-90">
+                    <i data-lucide="trash-2" class="w-4 h-4"></i>
+                    <span>Återvinning</span>
+                </button>
+                <button class="mission-btn flex items-center gap-2 px-6 py-2 rounded-full transition-colors hover:opacity-90">
+                    <i data-lucide="car" class="w-4 h-4"></i>
+                    <span>Övrigt</span>
+                </button>
+            </div>
+
+            <!-- Submit-knapp -->
+            <div class="text-center mt-8">
+                <button 
+                    class="px-8 py-3 rounded-lg font-semibold hover:opacity-90 transition-colors bg-[#FF8B3E] text-[#1E2832]"
+                >
+                    Skapa uppdrag
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Initiera Lucide icons
+        lucide.createIcons();
+
+        // Lägg till klick-hantering för kategoriknapparna
+        document.querySelectorAll('.mission-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                // Ta bort active-klassen från alla knappar
+                document.querySelectorAll('.mission-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                // Lägg till active-klass på den klickade knappen
+                button.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
