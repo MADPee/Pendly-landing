@@ -259,5 +259,95 @@
     }
   });
 </script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Referera till olika sektioner på sidan
+    const mainView = document.getElementById('main-view');
+    const uppdragFormView = document.getElementById('uppdrag-form-view');
+    const pendlareFormView = document.getElementById('pendlare-form-view');
+    
+    // Knapparna för att visa formulären
+    const createUppdragBtn = document.getElementById('create-uppdrag-btn');
+    const showPendlareFormBtn = document.getElementById('show-pendlare-form');
+    
+    // Tillbaka-knappar
+    const backFromUppdragBtn = document.getElementById('back-from-uppdrag');
+    const backFromPendlareBtn = document.getElementById('back-from-pendlare');
+    
+    // Funktion för att visa huvudvyn
+    function showMainView() {
+      mainView.style.display = 'block';
+      uppdragFormView.style.display = 'none';
+      pendlareFormView.style.display = 'none';
+    }
+    
+    // Funktion för att visa uppdragsformuläret
+    function showUppdragForm() {
+      mainView.style.display = 'none';
+      uppdragFormView.style.display = 'block';
+      pendlareFormView.style.display = 'none';
+      
+      // Scrollar till toppen när formuläret visas
+      window.scrollTo(0, 0);
+    }
+    
+    // Funktion för att visa pendlarformuläret
+    function showPendlareForm() {
+      mainView.style.display = 'none';
+      uppdragFormView.style.display = 'none';
+      pendlareFormView.style.display = 'block';
+      
+      // Scrollar till toppen när formuläret visas
+      window.scrollTo(0, 0);
+    }
+    
+    // Lägg till eventlyssnare för knapparna
+    if (createUppdragBtn) {
+      createUppdragBtn.addEventListener('click', showUppdragForm);
+    }
+    
+    if (showPendlareFormBtn) {
+      showPendlareFormBtn.addEventListener('click', showPendlareForm);
+    }
+    
+    if (backFromUppdragBtn) {
+      backFromUppdragBtn.addEventListener('click', showMainView);
+    }
+    
+    if (backFromPendlareBtn) {
+      backFromPendlareBtn.addEventListener('click', showMainView);
+    }
+    
+    // Hantera uppdragstyper om du har dessa knappar
+    const missionTypeButtons = document.querySelectorAll('.mission-type-btn');
+    let selectedType = '';
+    
+    missionTypeButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        // Ta bort aktiv klass från alla knappar
+        missionTypeButtons.forEach(btn => {
+          btn.classList.remove('active');
+          btn.style.backgroundColor = '#2A3541';
+          btn.style.color = '#E8D5C4';
+          btn.style.border = '1px solid rgba(255, 139, 62, 0.2)';
+        });
+        
+        // Lägg till aktiv klass på vald knapp
+        this.classList.add('active');
+        this.style.backgroundColor = '#FF8B3E';
+        this.style.color = '#1E2832';
+        this.style.border = '1px solid #FF8B3E';
+        
+        // Spara vald uppdragstyp
+        selectedType = this.dataset.type;
+        
+        // Visa "Skapa uppdrag"-knappen
+        if (createUppdragBtn) {
+          createUppdragBtn.style.display = 'inline-block';
+        }
+      });
+    });
+  });
+</script>
 </body>
 </html>
