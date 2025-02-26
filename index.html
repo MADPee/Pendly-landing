@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="sv">
-    <div id="main-view">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,9 +31,38 @@
             background-color: #FF8B3E;
             color: #1E2832;
         }
+        
+        /* Lägg till formatering för formulärbehållare */
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: rgba(42, 53, 65, 0.7);
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+  
+        .form-container iframe {
+            border-radius: 4px;
+            background-color: #ffffff;
+        }
     </style>
 </head>
 <body>
+    <!-- Under utveckling banner -->
+    <div id="dev-banner" class="w-full py-2 text-center" style="background-color: rgba(255, 139, 62, 0.2); border-bottom: 1px solid rgba(255, 139, 62, 0.3);">
+        <div class="flex items-center justify-center gap-2 max-w-7xl mx-auto px-4">
+            <svg class="w-5 h-5" fill="none" stroke="#FF8B3E" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+            </svg>
+            <p style="color: #E8D5C4;">
+                <span class="font-medium" style="color: #FF8B3E;">Pendly Beta:</span> 
+                Tjänsten är under utveckling. Vi uppskattar din feedback!
+            </p>
+            <button id="close-banner" class="ml-4 text-sm underline" style="color: #E8D5C4;">Stäng</button>
+        </div>
+    </div>
+
     <!-- Statistik banner -->
     <div class="stats-banner">
         <div class="max-w-7xl mx-auto">
@@ -54,337 +82,263 @@
             </div>
         </div>
     </div>
-<!-- Under utveckling banner -->
-<div id="dev-banner" class="w-full py-2 text-center" style="background-color: rgba(255, 139, 62, 0.2); border-bottom: 1px solid rgba(255, 139, 62, 0.3);">
-  <div class="flex items-center justify-center gap-2 max-w-7xl mx-auto px-4">
-    <svg class="w-5 h-5" fill="none" stroke="#FF8B3E" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
-    </svg>
-    <p style="color: #E8D5C4;">
-      <span class="font-medium" style="color: #FF8B3E;">Pendly Beta:</span> 
-      Tjänsten är under utveckling. Vi uppskattar din feedback!
-    </p>
-    <button id="close-banner" class="ml-4 text-sm underline" style="color: #E8D5C4;">Stäng</button>
-  </div>
-</div>
-
-<script>
-  // För att stänga bannern och spara status i localStorage
-  document.getElementById('close-banner').addEventListener('click', function() {
-    document.getElementById('dev-banner').style.display = 'none';
-    localStorage.setItem('pendlyDevBannerClosed', 'true');
-  });
-  
-  // Kontrollera om bannern tidigare har stängts
-  document.addEventListener('DOMContentLoaded', function() {
-    if(localStorage.getItem('pendlyDevBannerClosed') === 'true') {
-      document.getElementById('dev-banner').style.display = 'none';
-    }
-  });
-</script>
-    <!-- Huvudinnehåll -->
-    <main class="max-w-3xl mx-auto py-16 px-4">
-        <div class="text-center mb-12">
-            <h1 class="text-[#E8D5C4] text-3xl font-semibold mb-2">
-                Vad behöver du hjälp med?
-            </h1>
-            <p class="text-[#E8D5C4] opacity-80">
-                Låt pendlare hjälpa dig med dina ärenden
-            </p>
-        </div>
-
-        <div class="space-y-6">
-            <!-- Prompt-ruta -->
-            <input 
-                type="text"
-                placeholder="Beskriv ditt ärende här..."
-                class="w-full py-6 px-4 rounded-lg bg-[#2A3541] border border-[#FF8B3E]/20 text-[#E8D5C4]"
-            >
-            
-            <!-- Kategoriknappar -->
-            <div class="flex flex-wrap gap-2 justify-center">
-                <button class="mission-btn flex items-center gap-2 px-6 py-2 rounded-full transition-colors hover:opacity-90">
-                    <i data-lucide="package" class="w-4 h-4"></i>
-                    <span>Paketleverans</span>
-                </button>
-                <button class="mission-btn flex items-center gap-2 px-6 py-2 rounded-full transition-colors hover:opacity-90">
-                    <i data-lucide="shopping-bag" class="w-4 h-4"></i>
-                    <span>Matkasse</span>
-                </button>
-                <button class="mission-btn flex items-center gap-2 px-6 py-2 rounded-full transition-colors hover:opacity-90">
-                    <i data-lucide="trash-2" class="w-4 h-4"></i>
-                    <span>Återvinning</span>
-                </button>
-                <button class="mission-btn flex items-center gap-2 px-6 py-2 rounded-full transition-colors hover:opacity-90">
-                    <i data-lucide="car" class="w-4 h-4"></i>
-                    <span>Övrigt</span>
-                </button>
+    
+    <!-- Huvudvy -->
+    <div id="main-view">
+        <!-- Huvudinnehåll -->
+        <main class="max-w-3xl mx-auto py-16 px-4">
+            <div class="text-center mb-12">
+                <h1 class="text-[#E8D5C4] text-3xl font-semibold mb-2">
+                    Vad behöver du hjälp med?
+                </h1>
+                <p class="text-[#E8D5C4] opacity-80">
+                    Låt pendlare hjälpa dig med dina ärenden
+                </p>
             </div>
 
-            <!-- Submit-knapp -->
-            <div class="text-center mt-8">
-                <button 
-                    class="px-8 py-3 rounded-lg font-semibold hover:opacity-90 transition-colors bg-[#FF8B3E] text-[#1E2832]"
+            <div class="space-y-6">
+                <!-- Prompt-ruta -->
+                <input 
+                    type="text"
+                    placeholder="Beskriv ditt ärende här..."
+                    class="w-full py-6 px-4 rounded-lg bg-[#2A3541] border border-[#FF8B3E]/20 text-[#E8D5C4]"
                 >
-                    Skapa uppdrag
-                </button>
+                
+                <!-- Kategoriknappar -->
+                <div class="flex flex-wrap gap-2 justify-center">
+                    <button data-type="package" class="mission-btn flex items-center gap-2 px-6 py-2 rounded-full transition-colors hover:opacity-90">
+                        <i data-lucide="package" class="w-4 h-4"></i>
+                        <span>Paketleverans</span>
+                    </button>
+                    <button data-type="groceries" class="mission-btn flex items-center gap-2 px-6 py-2 rounded-full transition-colors hover:opacity-90">
+                        <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+                        <span>Matkasse</span>
+                    </button>
+                    <button data-type="waste" class="mission-btn flex items-center gap-2 px-6 py-2 rounded-full transition-colors hover:opacity-90">
+                        <i data-lucide="trash-2" class="w-4 h-4"></i>
+                        <span>Återvinning</span>
+                    </button>
+                    <button data-type="other" class="mission-btn flex items-center gap-2 px-6 py-2 rounded-full transition-colors hover:opacity-90">
+                        <i data-lucide="car" class="w-4 h-4"></i>
+                        <span>Övrigt</span>
+                    </button>
+                </div>
+
+                <!-- Submit-knapp - NOTERA ID-ATTRIBUTET TILLAGT HÄR -->
+                <div class="text-center mt-8">
+                    <button 
+                        id="create-uppdrag-btn"
+                        class="px-8 py-3 rounded-lg font-semibold hover:opacity-90 transition-colors bg-[#FF8B3E] text-[#1E2832]"
+                    >
+                        Skapa uppdrag
+                    </button>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Hur det fungerar sektion -->
+        <section class="py-12 px-4" style="background-color: #2A3541;">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="text-2xl font-semibold text-center mb-8" style="color: #E8D5C4;">Så här fungerar Pendly</h2>
+                
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Steg 1 -->
+                    <div class="text-center">
+                        <div class="mx-auto w-16 h-16 flex items-center justify-center rounded-full mb-4" style="background-color: rgba(255, 139, 62, 0.1);">
+                            <span class="text-xl font-bold" style="color: #FF8B3E;">1</span>
+                        </div>
+                        <h3 class="font-medium mb-2" style="color: #FF8B3E;">Skapa ett uppdrag</h3>
+                        <p style="color: rgba(232, 213, 196, 0.8);">Beskriv vad du behöver hjälp med, när och var. Vi matchar dig med pendlare som ändå passerar.</p>
+                    </div>
+                    
+                    <!-- Steg 2 -->
+                    <div class="text-center">
+                        <div class="mx-auto w-16 h-16 flex items-center justify-center rounded-full mb-4" style="background-color: rgba(255, 139, 62, 0.1);">
+                            <span class="text-xl font-bold" style="color: #FF8B3E;">2</span>
+                        </div>
+                        <h3 class="font-medium mb-2" style="color: #FF8B3E;">Matchas med pendlare</h3>
+                        <p style="color: rgba(232, 213, 196, 0.8);">Pendlare som redan rör sig längs den sträckan notifieras och kan acceptera uppdraget.</p>
+                    </div>
+                    
+                    <!-- Steg 3 -->
+                    <div class="text-center">
+                        <div class="mx-auto w-16 h-16 flex items-center justify-center rounded-full mb-4" style="background-color: rgba(255, 139, 62, 0.1);">
+                            <span class="text-xl font-bold" style="color: #FF8B3E;">3</span>
+                        </div>
+                        <h3 class="font-medium mb-2" style="color: #FF8B3E;">Uppdraget utförs</h3>
+                        <p style="color: rgba(232, 213, 196, 0.8);">Pendlaren utför uppdraget under sin dagliga resa. Du sparar tid och minskar onödiga resor.</p>
+                    </div>
+                </div>
+                
+                <!-- CTA för att bli pendlare - ÄNDRAT FRÅN ID TILL KLASS -->
+                <div class="mt-12 text-center">
+                    <p class="mb-4" style="color: #E8D5C4;">Pendlar du regelbundet? Tjäna extra genom att utföra uppdrag längs din rutt.</p>
+                    <button class="pendlare-btn px-6 py-2 rounded-full transition-colors hover:opacity-90" style="background-color: rgba(255, 139, 62, 0.1); color: #FF8B3E; border: 1px solid rgba(255, 139, 62, 0.3);">
+                        Bli pendlare
+                    </button>
+                </div>
+                
+                <!-- Fördelar -->
+                <div class="mt-16">
+                    <h3 class="text-xl text-center mb-6" style="color: #E8D5C4;">Fördelar med Pendly</h3>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0">
+                                <svg class="w-6 h-6" style="color: #FF8B3E;" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-medium mb-1" style="color: #FF8B3E;">Miljövänligt</h4>
+                                <p style="color: rgba(232, 213, 196, 0.8);">Minska onödiga resor och koldioxidutsläpp genom att utnyttja redan planerade pendlingsrutter.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Övriga fördelar... -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Uppdragsformulärvy -->
+    <div id="uppdrag-form-view" style="display: none;">
+        <div class="py-4 px-4 text-center">
+            <h2 style="color: #E8D5C4;" class="text-2xl mb-4">Skapa ett uppdrag</h2>
+            <button id="back-from-uppdrag" class="mb-4 px-4 py-2 rounded-full" 
+                    style="background-color: rgba(255, 139, 62, 0.1); color: #FF8B3E; border: 1px solid rgba(255, 139, 62, 0.3);">
+                ← Tillbaka
+            </button>
+            <div class="form-container">
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeB3TYaaq4BFiwJCG7z6G1aSZ2aEHq0CfaU4Jc1HCln0TLjyA/viewform?embedded=true" 
+                        width="100%" height="2915" frameborder="0" marginheight="0" marginwidth="0">
+                    Läser in...
+                </iframe>
             </div>
         </div>
-    </main>
+    </div>
 
+    <!-- Pendlarformulärvy -->
+    <div id="pendlare-form-view" style="display: none;">
+        <div class="py-4 px-4 text-center">
+            <h2 style="color: #E8D5C4;" class="text-2xl mb-4">Bli pendlare</h2>
+            <button id="back-from-pendlare" class="mb-4 px-4 py-2 rounded-full" 
+                    style="background-color: rgba(255, 139, 62, 0.1); color: #FF8B3E; border: 1px solid rgba(255, 139, 62, 0.3);">
+                ← Tillbaka
+            </button>
+            <div class="form-container">
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdKpsPsWTkA2dZTwpbe-KcgrCcG97VT-gkhYf8OUxe2ch9r9A/viewform?embedded=true" 
+                        width="100%" height="4274" frameborder="0" marginheight="0" marginwidth="0">
+                    Läser in...
+                </iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Konsoliderad JavaScript i slutet av dokumentet -->
     <script>
-        // Initiera Lucide icons
-        lucide.createIcons();
-
-        // Lägg till klick-hantering för kategoriknapparna
-        document.querySelectorAll('.mission-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                // Ta bort active-klassen från alla knappar
-                document.querySelectorAll('.mission-btn').forEach(btn => {
-                    btn.classList.remove('active');
+        // Vänta på att DOM är helt laddad innan vi lägger till händelsehanterare
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initiera Lucide icons
+            lucide.createIcons();
+            
+            // Banner-hantering
+            const closeBannerBtn = document.getElementById('close-banner');
+            if (closeBannerBtn) {
+                closeBannerBtn.addEventListener('click', function() {
+                    document.getElementById('dev-banner').style.display = 'none';
+                    localStorage.setItem('pendlyDevBannerClosed', 'true');
                 });
-                // Lägg till active-klass på den klickade knappen
-                button.classList.add('active');
+            }
+            
+            // Kontrollera om bannern tidigare har stängts
+            if (localStorage.getItem('pendlyDevBannerClosed') === 'true') {
+                const devBanner = document.getElementById('dev-banner');
+                if (devBanner) {
+                    devBanner.style.display = 'none';
+                }
+            }
+
+            // Referera till olika sektioner på sidan
+            const mainView = document.getElementById('main-view');
+            const uppdragFormView = document.getElementById('uppdrag-form-view');
+            const pendlareFormView = document.getElementById('pendlare-form-view');
+            
+            // Funktion för att visa huvudvyn
+            function showMainView() {
+                mainView.style.display = 'block';
+                uppdragFormView.style.display = 'none';
+                pendlareFormView.style.display = 'none';
+            }
+            
+            // Funktion för att visa uppdragsformuläret
+            function showUppdragForm() {
+                mainView.style.display = 'none';
+                uppdragFormView.style.display = 'block';
+                pendlareFormView.style.display = 'none';
+                
+                // Scrollar till toppen när formuläret visas
+                window.scrollTo(0, 0);
+            }
+            
+            // Funktion för att visa pendlarformuläret
+            function showPendlareForm() {
+                mainView.style.display = 'none';
+                uppdragFormView.style.display = 'none';
+                pendlareFormView.style.display = 'block';
+                
+                // Scrollar till toppen när formuläret visas
+                window.scrollTo(0, 0);
+            }
+            
+            // Knapp för att skapa uppdrag
+            const createUppdragBtn = document.getElementById('create-uppdrag-btn');
+            if (createUppdragBtn) {
+                createUppdragBtn.addEventListener('click', showUppdragForm);
+            }
+            
+            // Knappar för att bli pendlare - använder klass istället för ID
+            const pendlareBtns = document.querySelectorAll('.pendlare-btn');
+            pendlareBtns.forEach(button => {
+                button.addEventListener('click', showPendlareForm);
+            });
+            
+            // Tillbaka-knappar
+            const backFromUppdragBtn = document.getElementById('back-from-uppdrag');
+            if (backFromUppdragBtn) {
+                backFromUppdragBtn.addEventListener('click', showMainView);
+            }
+            
+            const backFromPendlareBtn = document.getElementById('back-from-pendlare');
+            if (backFromPendlareBtn) {
+                backFromPendlareBtn.addEventListener('click', showMainView);
+            }
+            
+            // Hantera uppdragstyper
+            const missionTypeButtons = document.querySelectorAll('.mission-btn');
+            let selectedType = '';
+            
+            missionTypeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Ta bort aktiv klass från alla knappar
+                    missionTypeButtons.forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    
+                    // Lägg till aktiv klass på den klickade knappen
+                    this.classList.add('active');
+                    
+                    // Spara vald uppdragstyp
+                    selectedType = this.dataset.type;
+                    
+                    // Visa "Skapa uppdrag"-knappen om den inte redan är synlig
+                    if (createUppdragBtn) {
+                        createUppdragBtn.style.display = 'inline-block';
+                    }
+                });
             });
         });
     </script>
-
-    <div id="uppdrag-form-view" style="display: none;">
-  <div class="py-4 px-4 text-center">
-    <h2 style="color: #E8D5C4;" class="text-2xl mb-4">Skapa ett uppdrag</h2>
-    <button id="back-from-uppdrag" class="mb-4 px-4 py-2 rounded-full" 
-            style="background-color: rgba(255, 139, 62, 0.1); color: #FF8B3E; border: 1px solid rgba(255, 139, 62, 0.3);">
-      ← Tillbaka
-    </button>
-    <div class="form-container">
-      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeB3TYaaq4BFiwJCG7z6G1aSZ2aEHq0CfaU4Jc1HCln0TLjyA/viewform?embedded=true" 
-              width="100%" height="2915" frameborder="0" marginheight="0" marginwidth="0">
-        Läser in...
-      </iframe>
-    </div>
-  </div>
-</div>
-
-    <div id="pendlare-form-view" style="display: none;">
-  <div class="py-4 px-4 text-center">
-    <h2 style="color: #E8D5C4;" class="text-2xl mb-4">Bli pendlare</h2>
-    <button id="back-from-pendlare" class="mb-4 px-4 py-2 rounded-full" 
-            style="background-color: rgba(255, 139, 62, 0.1); color: #FF8B3E; border: 1px solid rgba(255, 139, 62, 0.3);">
-      ← Tillbaka
-    </button>
-    <div class="form-container">
-      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdKpsPsWTkA2dZTwpbe-KcgrCcG97VT-gkhYf8OUxe2ch9r9A/viewform?embedded=true" 
-              width="100%" height="4274" frameborder="0" marginheight="0" marginwidth="0">
-        Läser in...
-      </iframe>
-    </div>
-  </div>
-</div>
-    
-<!-- Hur det fungerar sektion -->
-<section class="py-12 px-4" style="background-color: #2A3541;">
-  <div class="max-w-3xl mx-auto">
-    <h2 class="text-2xl font-semibold text-center mb-8" style="color: #E8D5C4;">Så här fungerar Pendly</h2>
-    
-    <div class="grid md:grid-cols-3 gap-8">
-      <!-- Steg 1 -->
-      <div class="text-center">
-        <div class="mx-auto w-16 h-16 flex items-center justify-center rounded-full mb-4" style="background-color: rgba(255, 139, 62, 0.1);">
-          <span class="text-xl font-bold" style="color: #FF8B3E;">1</span>
-        </div>
-        <h3 class="font-medium mb-2" style="color: #FF8B3E;">Skapa ett uppdrag</h3>
-        <p style="color: rgba(232, 213, 196, 0.8);">Beskriv vad du behöver hjälp med, när och var. Vi matchar dig med pendlare som ändå passerar.</p>
-      </div>
-      
-      <!-- Steg 2 -->
-      <div class="text-center">
-        <div class="mx-auto w-16 h-16 flex items-center justify-center rounded-full mb-4" style="background-color: rgba(255, 139, 62, 0.1);">
-          <span class="text-xl font-bold" style="color: #FF8B3E;">2</span>
-        </div>
-        <h3 class="font-medium mb-2" style="color: #FF8B3E;">Matchas med pendlare</h3>
-        <p style="color: rgba(232, 213, 196, 0.8);">Pendlare som redan rör sig längs den sträckan notifieras och kan acceptera uppdraget.</p>
-      </div>
-      
-      <!-- Steg 3 -->
-      <div class="text-center">
-        <div class="mx-auto w-16 h-16 flex items-center justify-center rounded-full mb-4" style="background-color: rgba(255, 139, 62, 0.1);">
-          <span class="text-xl font-bold" style="color: #FF8B3E;">3</span>
-        </div>
-        <h3 class="font-medium mb-2" style="color: #FF8B3E;">Uppdraget utförs</h3>
-        <p style="color: rgba(232, 213, 196, 0.8);">Pendlaren utför uppdraget under sin dagliga resa. Du sparar tid och minskar onödiga resor.</p>
-      </div>
-    </div>
-    
-    <!-- CTA för att bli pendlare -->
-    <div class="mt-12 text-center">
-      <p class="mb-4" style="color: #E8D5C4;">Pendlar du regelbundet? Tjäna extra genom att utföra uppdrag längs din rutt.</p>
-      <button id="show-pendlare-form" class="px-6 py-2 rounded-full transition-colors hover:opacity-90" style="background-color: rgba(255, 139, 62, 0.1); color: #FF8B3E; border: 1px solid rgba(255, 139, 62, 0.3);">
-        Bli pendlare
-      </button>
-    </div>
-    
-    <!-- Fördelar -->
-    <div class="mt-16">
-      <h3 class="text-xl text-center mb-6" style="color: #E8D5C4;">Fördelar med Pendly</h3>
-      
-      <div class="grid md:grid-cols-2 gap-6">
-        <div class="flex gap-4">
-          <div class="flex-shrink-0">
-            <svg class="w-6 h-6" style="color: #FF8B3E;" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-            </svg>
-          </div>
-          <div>
-            <h4 class="font-medium mb-1" style="color: #FF8B3E;">Miljövänligt</h4>
-            <p style="color: rgba(232, 213, 196, 0.8);">Minska onödiga resor och koldioxidutsläpp genom att utnyttja redan planerade pendlingsrutter.</p>
-          </div>
-        </div>
-        
-        <div class="flex gap-4">
-          <div class="flex-shrink-0">
-            <svg class="w-6 h-6" style="color: #FF8B3E;" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-            </svg>
-          </div>
-          <div>
-            <h4 class="font-medium mb-1" style="color: #FF8B3E;">Ekonomiskt</h4>
-            <p style="color: rgba(232, 213, 196, 0.8);">Pendlare kan tjäna extra pengar på sina dagliga resor, utan större omvägar.</p>
-          </div>
-        </div>
-        
-        <div class="flex gap-4">
-          <div class="flex-shrink-0">
-            <svg class="w-6 h-6" style="color: #FF8B3E;" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-            </svg>
-          </div>
-          <div>
-            <h4 class="font-medium mb-1" style="color: #FF8B3E;">Tidseffektivt</h4>
-            <p style="color: rgba(232, 213, 196, 0.8);">Spara tid genom att låta andra utföra ärenden när de ändå är i området.</p>
-          </div>
-        </div>
-        
-        <div class="flex gap-4">
-          <div class="flex-shrink-0">
-            <svg class="w-6 h-6" style="color: #FF8B3E;" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-            </svg>
-          </div>
-          <div>
-            <h4 class="font-medium mb-1" style="color: #FF8B3E;">Gemenskapsfokuserat</h4>
-            <p style="color: rgba(232, 213, 196, 0.8);">Skapa nya kontakter och stärk lokalsamhället genom att hjälpa varandra.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-    
-
-<script>
-  // Koppling till befintlig knapp för att visa pendlarformuläret
-  document.getElementById('show-pendlare-form').addEventListener('click', function() {
-    // Antar att du har en funktion för att visa pendlarformuläret
-    // Om inte, kan du lägga till motsvarande kod här
-    if (typeof showPendlareForm === 'function') {
-      showPendlareForm();
-    } else {
-      // Fallback om funktionen inte finns
-      console.log('Funktion för att visa pendlarformulär saknas');
-    }
-  });
-</script>
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // Referera till olika sektioner på sidan
-    const mainView = document.getElementById('main-view');
-    const uppdragFormView = document.getElementById('uppdrag-form-view');
-    const pendlareFormView = document.getElementById('pendlare-form-view');
-    
-    // Knapparna för att visa formulären
-    const createUppdragBtn = document.getElementById('create-uppdrag-btn');
-    const showPendlareFormBtn = document.getElementById('show-pendlare-form');
-    
-    // Tillbaka-knappar
-    const backFromUppdragBtn = document.getElementById('back-from-uppdrag');
-    const backFromPendlareBtn = document.getElementById('back-from-pendlare');
-    
-    // Funktion för att visa huvudvyn
-    function showMainView() {
-      mainView.style.display = 'block';
-      uppdragFormView.style.display = 'none';
-      pendlareFormView.style.display = 'none';
-    }
-    
-    // Funktion för att visa uppdragsformuläret
-    function showUppdragForm() {
-      mainView.style.display = 'none';
-      uppdragFormView.style.display = 'block';
-      pendlareFormView.style.display = 'none';
-      
-      // Scrollar till toppen när formuläret visas
-      window.scrollTo(0, 0);
-    }
-    
-    // Funktion för att visa pendlarformuläret
-    function showPendlareForm() {
-      mainView.style.display = 'none';
-      uppdragFormView.style.display = 'none';
-      pendlareFormView.style.display = 'block';
-      
-      // Scrollar till toppen när formuläret visas
-      window.scrollTo(0, 0);
-    }
-    
-    // Lägg till eventlyssnare för knapparna
-    if (createUppdragBtn) {
-      createUppdragBtn.addEventListener('click', showUppdragForm);
-    }
-    
-    if (showPendlareFormBtn) {
-      showPendlareFormBtn.addEventListener('click', showPendlareForm);
-    }
-    
-    if (backFromUppdragBtn) {
-      backFromUppdragBtn.addEventListener('click', showMainView);
-    }
-    
-    if (backFromPendlareBtn) {
-      backFromPendlareBtn.addEventListener('click', showMainView);
-    }
-    
-    // Hantera uppdragstyper om du har dessa knappar
-    const missionTypeButtons = document.querySelectorAll('.mission-type-btn');
-    let selectedType = '';
-    
-    missionTypeButtons.forEach(button => {
-      button.addEventListener('click', function() {
-        // Ta bort aktiv klass från alla knappar
-        missionTypeButtons.forEach(btn => {
-          btn.classList.remove('active');
-          btn.style.backgroundColor = '#2A3541';
-          btn.style.color = '#E8D5C4';
-          btn.style.border = '1px solid rgba(255, 139, 62, 0.2)';
-        });
-        
-        // Lägg till aktiv klass på vald knapp
-        this.classList.add('active');
-        this.style.backgroundColor = '#FF8B3E';
-        this.style.color = '#1E2832';
-        this.style.border = '1px solid #FF8B3E';
-        
-        // Spara vald uppdragstyp
-        selectedType = this.dataset.type;
-        
-        // Visa "Skapa uppdrag"-knappen
-        if (createUppdragBtn) {
-          createUppdragBtn.style.display = 'inline-block';
-        }
-      });
-    });
-  });
-</script>
-    </div>
 </body>
 </html>
