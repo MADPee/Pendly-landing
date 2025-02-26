@@ -32,7 +32,7 @@
             color: #1E2832;
         }
         
-        /* Lägg till formatering för formulärbehållare */
+        /* Formulärbehållarformatering */
         .form-container {
             max-width: 800px;
             margin: 0 auto;
@@ -45,6 +45,18 @@
         .form-container iframe {
             border-radius: 4px;
             background-color: #ffffff;
+        }
+
+        /* Dölj-hjälpklass */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Formulärvyer bakgrundsfärg */
+        #uppdrag-form-view, #pendlare-form-view {
+            background-color: #1E2832;
+            min-height: 100vh;
+            padding-top: 20px;
         }
     </style>
 </head>
@@ -124,7 +136,7 @@
                     </button>
                 </div>
 
-                <!-- Submit-knapp - NOTERA ID-ATTRIBUTET TILLAGT HÄR -->
+                <!-- Submit-knapp -->
                 <div class="text-center mt-8">
                     <button 
                         id="create-uppdrag-btn"
@@ -170,7 +182,7 @@
                     </div>
                 </div>
                 
-                <!-- CTA för att bli pendlare - ÄNDRAT FRÅN ID TILL KLASS -->
+                <!-- CTA för att bli pendlare -->
                 <div class="mt-12 text-center">
                     <p class="mb-4" style="color: #E8D5C4;">Pendlar du regelbundet? Tjäna extra genom att utföra uppdrag längs din rutt.</p>
                     <button class="pendlare-btn px-6 py-2 rounded-full transition-colors hover:opacity-90" style="background-color: rgba(255, 139, 62, 0.1); color: #FF8B3E; border: 1px solid rgba(255, 139, 62, 0.3);">
@@ -179,59 +191,62 @@
                 </div>
                 
                 <!-- Fördelar -->
-         <div class="mt-16">
-    <h3 class="text-xl text-center mb-6" style="color: #E8D5C4;">Fördelar med Pendly</h3>
-    
-    <div class="grid md:grid-cols-2 gap-6">
-        <div class="flex gap-4">
-            <div class="flex-shrink-0">
-                <svg class="w-6 h-6" style="color: #FF8B3E;" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                </svg>
+                <div class="mt-16">
+                    <h3 class="text-xl text-center mb-6" style="color: #E8D5C4;">Fördelar med Pendly</h3>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0">
+                                <svg class="w-6 h-6" style="color: #FF8B3E;" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-medium mb-1" style="color: #FF8B3E;">Miljövänligt</h4>
+                                <p style="color: rgba(232, 213, 196, 0.8);">Minska onödiga resor och koldioxidutsläpp genom att utnyttja redan planerade pendlingsrutter.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0">
+                                <svg class="w-6 h-6" style="color: #FF8B3E;" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-medium mb-1" style="color: #FF8B3E;">Ekonomiskt</h4>
+                                <p style="color: rgba(232, 213, 196, 0.8);">Pendlare kan tjäna extra pengar på sina dagliga resor, utan större omvägar.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0">
+                                <svg class="w-6 h-6" style="color: #FF8B3E;" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-medium mb-1" style="color: #FF8B3E;">Tidseffektivt</h4>
+                                <p style="color: rgba(232, 213, 196, 0.8);">Spara tid genom att låta andra utföra ärenden när de ändå är i området.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0">
+                                <svg class="w-6 h-6" style="color: #FF8B3E;" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-medium mb-1" style="color: #FF8B3E;">Gemenskapsfokuserat</h4>
+                                <p style="color: rgba(232, 213, 196, 0.8);">Skapa nya kontakter och stärk lokalsamhället genom att hjälpa varandra.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div>
-                <h4 class="font-medium mb-1" style="color: #FF8B3E;">Miljövänligt</h4>
-                <p style="color: rgba(232, 213, 196, 0.8);">Minska onödiga resor och koldioxidutsläpp genom att utnyttja redan planerade pendlingsrutter.</p>
-            </div>
-        </div>
-        
-        <div class="flex gap-4">
-            <div class="flex-shrink-0">
-                <svg class="w-6 h-6" style="color: #FF8B3E;" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
-            </div>
-            <div>
-                <h4 class="font-medium mb-1" style="color: #FF8B3E;">Ekonomiskt</h4>
-                <p style="color: rgba(232, 213, 196, 0.8);">Pendlare kan tjäna extra pengar på sina dagliga resor, utan större omvägar.</p>
-            </div>
-        </div>
-        
-        <div class="flex gap-4">
-            <div class="flex-shrink-0">
-                <svg class="w-6 h-6" style="color: #FF8B3E;" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
-            </div>
-            <div>
-                <h4 class="font-medium mb-1" style="color: #FF8B3E;">Tidseffektivt</h4>
-                <p style="color: rgba(232, 213, 196, 0.8);">Spara tid genom att låta andra utföra ärenden när de ändå är i området.</p>
-            </div>
-        </div>
-        
-        <div class="flex gap-4">
-            <div class="flex-shrink-0">
-                <svg class="w-6 h-6" style="color: #FF8B3E;" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                </svg>
-            </div>
-            <div>
-                <h4 class="font-medium mb-1" style="color: #FF8B3E;">Gemenskapsfokuserat</h4>
-                <p style="color: rgba(232, 213, 196, 0.8);">Skapa nya kontakter och stärk lokalsamhället genom att hjälpa varandra.</p>
-            </div>
-        </div>
-    </div>
-</div>
+        </section>
+    </div> <!-- Här är main-view-stängningen som saknades -->
 
     <!-- Uppdragsformulärvy -->
     <div id="uppdrag-form-view" style="display: none;">
@@ -243,9 +258,23 @@
             </button>
             <div class="form-container">
                 <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeB3TYaaq4BFiwJCG7z6G1aSZ2aEHq0CfaU4Jc1HCln0TLjyA/viewform?embedded=true" 
-                        width="100%" height="2915" frameborder="0" marginheight="0" marginwidth="0">
+                        width="100%" height="2915" frameborder="0" marginheight="0" marginwidth="0" id="uppdrag-form-iframe">
                     Läser in...
                 </iframe>
+                
+                <!-- Fallback när iframe blockeras -->
+                <div id="uppdrag-form-fallback" class="hidden p-6 bg-[#2A3541] rounded-lg border border-[#FF8B3E]/20 text-center">
+                    <svg class="w-12 h-12 mx-auto mb-4" fill="none" stroke="#FF8B3E" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                    </svg>
+                    <h3 class="text-xl font-medium mb-3" style="color: #FF8B3E;">Formuläret kunde inte laddas</h3>
+                    <p class="text-[#E8D5C4] mb-4">Din webbläsare blockerar visning av Google Forms. Du kan:</p>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeB3TYaaq4BFiwJCG7z6G1aSZ2aEHq0CfaU4Jc1HCln0TLjyA/viewform" 
+                       target="_blank" 
+                       class="inline-block px-6 py-3 bg-[#FF8B3E] text-[#1E2832] rounded-lg font-medium hover:opacity-90 transition-opacity">
+                        Öppna formuläret i ny flik
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -260,17 +289,58 @@
             </button>
             <div class="form-container">
                 <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdKpsPsWTkA2dZTwpbe-KcgrCcG97VT-gkhYf8OUxe2ch9r9A/viewform?embedded=true" 
-                        width="100%" height="4274" frameborder="0" marginheight="0" marginwidth="0">
+                        width="100%" height="4274" frameborder="0" marginheight="0" marginwidth="0" id="pendlare-form-iframe">
                     Läser in...
                 </iframe>
+                
+                <!-- Fallback när iframe blockeras -->
+                <div id="pendlare-form-fallback" class="hidden p-6 bg-[#2A3541] rounded-lg border border-[#FF8B3E]/20 text-center">
+                    <svg class="w-12 h-12 mx-auto mb-4" fill="none" stroke="#FF8B3E" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                    </svg>
+                    <h3 class="text-xl font-medium mb-3" style="color: #FF8B3E;">Formuläret kunde inte laddas</h3>
+                    <p class="text-[#E8D5C4] mb-4">Din webbläsare blockerar visning av Google Forms. Du kan:</p>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdKpsPsWTkA2dZTwpbe-KcgrCcG97VT-gkhYf8OUxe2ch9r9A/viewform" 
+                       target="_blank" 
+                       class="inline-block px-6 py-3 bg-[#FF8B3E] text-[#1E2832] rounded-lg font-medium hover:opacity-90 transition-opacity">
+                        Öppna formuläret i ny flik
+                    </a>
+                </div>
             </div>
         </div>
     </div>
 
     <!-- Konsoliderad JavaScript i slutet av dokumentet -->
     <script>
+        // Detta kör innan DOM är laddad för att definiera globala funktioner
+        // Funktioner för att visa olika vyer
+        window.showMainView = function() {
+            document.getElementById('main-view').style.display = 'block';
+            document.getElementById('uppdrag-form-view').style.display = 'none';
+            document.getElementById('pendlare-form-view').style.display = 'none';
+            console.log('Visar huvudvy');
+        };
+        
+        window.showUppdragForm = function() {
+            document.getElementById('main-view').style.display = 'none';
+            document.getElementById('uppdrag-form-view').style.display = 'block';
+            document.getElementById('pendlare-form-view').style.display = 'none';
+            window.scrollTo(0, 0);
+            console.log('Visar uppdragsformulär');
+        };
+        
+        window.showPendlareForm = function() {
+            document.getElementById('main-view').style.display = 'none';
+            document.getElementById('uppdrag-form-view').style.display = 'none';
+            document.getElementById('pendlare-form-view').style.display = 'block';
+            window.scrollTo(0, 0);
+            console.log('Visar pendlarformulär');
+        };
+        
         // Vänta på att DOM är helt laddad innan vi lägger till händelsehanterare
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM helt laddad');
+            
             // Initiera Lucide icons
             lucide.createIcons();
             
@@ -291,59 +361,35 @@
                 }
             }
 
-            // Referera till olika sektioner på sidan
-            const mainView = document.getElementById('main-view');
-            const uppdragFormView = document.getElementById('uppdrag-form-view');
-            const pendlareFormView = document.getElementById('pendlare-form-view');
-            
-            // Funktion för att visa huvudvyn
-            function showMainView() {
-                mainView.style.display = 'block';
-                uppdragFormView.style.display = 'none';
-                pendlareFormView.style.display = 'none';
-            }
-            
-            // Funktion för att visa uppdragsformuläret
-            function showUppdragForm() {
-                mainView.style.display = 'none';
-                uppdragFormView.style.display = 'block';
-                pendlareFormView.style.display = 'none';
-                
-                // Scrollar till toppen när formuläret visas
-                window.scrollTo(0, 0);
-            }
-            
-            // Funktion för att visa pendlarformuläret
-            function showPendlareForm() {
-                mainView.style.display = 'none';
-                uppdragFormView.style.display = 'none';
-                pendlareFormView.style.display = 'block';
-                
-                // Scrollar till toppen när formuläret visas
-                window.scrollTo(0, 0);
-            }
-            
             // Knapp för att skapa uppdrag
             const createUppdragBtn = document.getElementById('create-uppdrag-btn');
             if (createUppdragBtn) {
-                createUppdragBtn.addEventListener('click', showUppdragForm);
+                console.log('Hittade skapa uppdrag-knappen');
+                createUppdragBtn.addEventListener('click', window.showUppdragForm);
+            } else {
+                console.error('Kunde inte hitta skapa uppdrag-knappen');
             }
             
-            // Knappar för att bli pendlare - använder klass istället för ID
+            // Knappar för att bli pendlare
             const pendlareBtns = document.querySelectorAll('.pendlare-btn');
-            pendlareBtns.forEach(button => {
-                button.addEventListener('click', showPendlareForm);
-            });
+            if (pendlareBtns.length > 0) {
+                console.log('Hittade pendlare-knappar: ', pendlareBtns.length);
+                pendlareBtns.forEach(button => {
+                    button.addEventListener('click', window.showPendlareForm);
+                });
+            } else {
+                console.error('Kunde inte hitta några pendlare-knappar');
+            }
             
             // Tillbaka-knappar
             const backFromUppdragBtn = document.getElementById('back-from-uppdrag');
             if (backFromUppdragBtn) {
-                backFromUppdragBtn.addEventListener('click', showMainView);
+                backFromUppdragBtn.addEventListener('click', window.showMainView);
             }
             
             const backFromPendlareBtn = document.getElementById('back-from-pendlare');
             if (backFromPendlareBtn) {
-                backFromPendlareBtn.addEventListener('click', showMainView);
+                backFromPendlareBtn.addEventListener('click', window.showMainView);
             }
             
             // Hantera uppdragstyper
@@ -362,6 +408,7 @@
                     
                     // Spara vald uppdragstyp
                     selectedType = this.dataset.type;
+                    console.log('Vald uppdragstyp: ', selectedType);
                     
                     // Visa "Skapa uppdrag"-knappen om den inte redan är synlig
                     if (createUppdragBtn) {
@@ -369,6 +416,58 @@
                     }
                 });
             });
+            
+            // Kontrollera om iframes laddas eller blockeras
+            function checkIframeLoading(iframeId, fallbackId) {
+                const iframe = document.getElementById(iframeId);
+                const fallback = document.getElementById(fallbackId);
+                
+                if (!iframe || !fallback) {
+                    console.error('Kunde inte hitta iframe eller fallback element');
+                    return;
+                }
+                
+                // Sätt en timeout för att kontrollera om iframe-innehållet laddades
+                setTimeout(function() {
+                    try {
+                        // Försök komma åt iframe-innehållet
+                        const iframeContent = iframe.contentDocument || iframe.contentWindow.document;
+                        // Om vi inte kan nå innehållet är iframe troligen blockerad
+                        if (!iframeContent) {
+                            console.log('Kunde inte nå iframe-innehåll: ' + iframeId);
+                            fallback.classList.remove('hidden');
+                            iframe.style.display = 'none';
+                        } else {
+                            console.log('Iframe laddad korrekt: ' + iframeId);
+                        }
+                    } catch (e) {
+                        // Säkerhetsfel innebär att iframe är blockerad
+                        console.log('Säkerhetsfel för iframe: ' + iframeId, e);
+                        fallback.classList.remove('hidden');
+                        iframe.style.display = 'none';
+                    }
+                }, 1500); // Kontrollera efter 1,5 sekunder
+            }
+            
+            // Kontrollera båda iframes
+            checkIframeLoading('uppdrag-form-iframe', 'uppdrag-form-fallback');
+            checkIframeLoading('pendlare-form-iframe', 'pendlare-form-fallback');
+            
+            // Funktion för att upptäcka integritetswebbläsare
+            function isPrivacyBrowser() {
+                const ua = navigator.userAgent.toLowerCase();
+                return ua.includes('duckduckgo') || ua.includes('ecosia') || 
+                      (ua.includes('safari') && !ua.includes('chrome'));
+            }
+            
+            // Visa alternativ för integritetswebbläsare direkt om det behövs
+            if (isPrivacyBrowser()) {
+                console.log('Integritetswebbläsare upptäckt');
+                document.getElementById('uppdrag-form-fallback').classList.remove('hidden');
+                document.getElementById('uppdrag-form-iframe').style.display = 'none';
+                document.getElementById('pendlare-form-fallback').classList.remove('hidden');
+                document.getElementById('pendlare-form-iframe').style.display = 'none';
+            }
         });
     </script>
 </body>
